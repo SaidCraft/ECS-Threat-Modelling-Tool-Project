@@ -1,0 +1,13 @@
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Local variables override (if used)
+terraform.tfvars
+terraform.tfvars.json
+
+# AWS credentials (just in case)
+*.pem
+*.key
+.aws/
