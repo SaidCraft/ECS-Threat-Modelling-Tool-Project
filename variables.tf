@@ -107,3 +107,7 @@ variable "ecs_desired_count" {
 variable "execution_role_arn" {
   type = string
 }
+
+variable "certificate_arn" {
+  type = string
+}

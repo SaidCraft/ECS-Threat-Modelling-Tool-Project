@@ -46,6 +46,7 @@ module "alb" {
   tg_port            = var.tg_port
   vpc_id             = module.vpc.vpc_id
   listener_port      = var.listener_port
+  certificate_arn    = var.certificate_arn
 }
 
 

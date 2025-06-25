@@ -38,3 +38,6 @@ variable "listener_port" {
 
 }
 
+variable "certificate_arn" {
+  type = string
+}

@@ -25,7 +25,9 @@ resource "aws_lb_target_group" "ip" {
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.ALB.arn
   port              = var.listener_port
-  protocol          = "HTTP"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+    certificate_arn   = var.certificate_arn
 
   default_action {
     type             = "forward"
