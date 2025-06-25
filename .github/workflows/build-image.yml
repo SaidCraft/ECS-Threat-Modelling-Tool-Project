@@ -27,5 +27,5 @@ jobs:
                 REPOSITORY: ecs-project-repo
                 IMAGE_TAG: ${{ github.sha }}
               run: |
-               docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f .
+               docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG  .
                docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
