@@ -34,7 +34,7 @@ jobs:
 
       - name: Force ECS Service Redeployment
         env:
-          CLUSTER: ECS-CLusters
+          CLUSTER: ECS-Clusters
           SERVICE: mongo
         run: |
           aws ecs update-service \
