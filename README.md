@@ -11,7 +11,7 @@ It has been extended to demonstrate a production-grade deployment on AWS using *
 - [Features](#features)  
 - [Architecture](#architecture)  
 - [How to Run](#how-to-run)  
-- [Live Site](#live-site)    
+- [Live Site & Screenshots Showcase](#live-site--screenshots-showcase)    
 
 ## Features
 - Based on Amazon's Threat Model
@@ -130,4 +130,21 @@ After a few minutes, your site will be live at:
 Push this project to your GitHub repository and the CI/CD pipeline will build and push the Docker image to ECR, and redeploy the ECS service automatically.
 
 
-## Live Site
+## Live Site & Screenshots Showcase
+
+### Live Page (HTTPS)
+![alt text](/src/Website.gif)
+
+### Browser SSL 
+![alt text](/src/SSL%20Lock%20Icon.JPG)
+![alt text](/src/SSL%20Certificate.JPG)
+
+### Github Actions - Successful Run
+![alt text](/src/GitHub%20Actions%20-%20Success.JPG)
+
+### ECS Tasks Running
+![alt text](/src/ECS-Tasks-Running.JPG)
+
+### ALB Target Group - Healthy
+![alt](/src/ALB-Target%20Group%20-%20Healthy.JPG)
+
