@@ -1,6 +1,6 @@
 # Overview
 
-This project is based on [Amazon's Threat Composer Tool](), an open-source solution designed to facilitate threat modeling and improve security assessment.
+This project is based on Amazon's Threat Composer Tool, an open-source solution designed to facilitate threat modeling and improve security assessment.
 
 It has been extended to demonstrate a production-grade deployment on AWS using **Docker**, **Terraform**, **ECS**, and **GitHub Actions**, complete with automated infrastructure provisioning, CI/CD pipeline, and HTTPS-enabled access via a Load Balancer.
 
@@ -131,39 +131,3 @@ Push this project to your GitHub repository and the CI/CD pipeline will build an
 
 
 ## Live Site
-
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
-
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
