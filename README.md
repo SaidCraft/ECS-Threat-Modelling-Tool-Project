@@ -7,11 +7,47 @@ It has been extended to demonstrate a production-grade deployment on AWS using *
 
 ## Table of Contents
 
-- [Overview](#overview)  
+- [Directory Structure](#directory-structure)  
 - [Features](#features)  
 - [Architecture](#architecture)  
 - [How to Run](#how-to-run)  
 - [Live Site & Screenshots Showcase](#live-site--screenshots-showcase)    
+
+## Directory Structure
+```css
+./
+├── .github/
+│   └── workflows/
+│       └── build-image.yml
+├── app/
+├── modules/
+│   ├── alb/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── ecs/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── security_groups/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   └── vpc/
+│       ├── main.tf
+│       ├── outputs.tf
+│       └── variables.tf
+├── src/
+├── .gitignore
+├── .terraform.lock.hcl
+├── Dockerfile
+├── main.tf
+├── outputs.tf
+├── providers.tf
+├── README.md
+└── variables.tf
+```
+
 
 ## Features
 - Based on Amazon's Threat Model
