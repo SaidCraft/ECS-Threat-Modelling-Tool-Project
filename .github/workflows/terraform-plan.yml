@@ -18,7 +18,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
-          
+
       - name: Setup Terraform with specified version on the runner
         uses: hashicorp/setup-terraform@v2
         with:
@@ -26,6 +26,10 @@ jobs:
 
       - name: Run terraform fmt
         run: terraform -chdir=terraform fmt
+      
+      - name: Run terraform init
+        run: terraform -chdir=terraform init
+
 
       - name: Run terraform validate
         run: terraform -chdir=terraform validate
