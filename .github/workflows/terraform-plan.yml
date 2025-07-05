@@ -30,9 +30,11 @@ jobs:
       - name: Run terraform init
         run: terraform -chdir=terraform init
 
-
       - name: Run terraform validate
         run: terraform -chdir=terraform validate
 
       - name: Run terraform plan
         run: terraform -chdir=terraform plan
+            -var="certificate_arn=${{ secrets.CERTIFICATE_ARN }}" \
+            -var="container_image=${{ secrets.CONTAINER_IMAGE }}" \
+            -var="execution_role_arn=${{ secrets.EXECUTION_ROLE_ARN }}"
