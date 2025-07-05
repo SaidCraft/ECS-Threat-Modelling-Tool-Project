@@ -1,6 +1,9 @@
 name: Docker Image actions
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'app/**'
 
 jobs:
   build:
