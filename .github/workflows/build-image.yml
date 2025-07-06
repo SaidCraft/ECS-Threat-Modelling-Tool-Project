@@ -6,6 +6,8 @@ on:
     types:
       - completed
 
+  workflow_dispatch: # MANUAL TRIGGER FROM GITHUB UI
+
 jobs:
   build:
     name: Build Image
