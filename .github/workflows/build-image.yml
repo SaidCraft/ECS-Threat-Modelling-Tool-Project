@@ -1,9 +1,10 @@
 name: Docker Image actions
 
 on:
-  push:
-    paths:
-      - 'app/**'
+  workflow_run:
+    workflows: ["Terraform Apply Pipeline"]
+    types:
+      - completed
 
 jobs:
   build:
@@ -25,22 +26,24 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and Push Docker Image to Amazon ECR
-        env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: my-app-ecr
-          IMAGE_TAG: ${{ github.sha }}
+      - name: Set image variables
+        run: |
+          echo "REGISTRY=${{ steps.login-ecr.outputs.registry }}" >> $BUILD_ENV
+          echo "REPOSITORY=my-app-ecr" >> $BULD_ENV 
+          echo "IMAGE_TAG=${{github.sha }}" >> $BUILD_ENV
+
+      - name: "Build Docker Image"
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker tag $REGISTRY/$REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:latest
-          docker push $REGISTRY/$REPOSITORY:latest
 
-      - name: Force ECS Service Redeployment
-        env:
-          CLUSTER: ECS-Clusters
-          SERVICE: mongo
+      - name: "Install Trivy"
         run: |
-          aws ecs update-service \
-            --cluster $CLUSTER \
-            --service $SERVICE \
-            --force-new-deployment
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
+          sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
+      
+      - name: "Scan Docker Image with Trivy"
+        run: trivy image --exit-code 1 --severity HIGH,CRITICAL $REGISTRY/$REPOSITORY:latest
+
+      - name: "Push Docker Image to Amazon ECR"
+        run: docker push $$REGISTRY/$REPOSITORY:latest
