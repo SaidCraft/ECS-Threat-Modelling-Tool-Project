@@ -15,37 +15,47 @@ It has been extended to demonstrate a production-grade deployment on AWS using *
 
 ## Directory Structure
 ```css
-./
+/
 ├── .github/
 │   └── workflows/
-│       └── build-image.yml
+│       ├── build-image.yml
+│       ├── terraform-apply.yml
+│       ├── terraform-destroy.yml
+│       └── terraform-plan.yml
 ├── app/
-├── modules/
-│   ├── alb/
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   ├── ecs/
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   ├── security_groups/
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   └── vpc/
-│       ├── main.tf
-│       ├── outputs.tf
-│       └── variables.tf
 ├── src/
+├── terraform/
+│   ├── .terraform/
+│   ├── modules/
+│   │   ├── alb/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── ecr/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── ecs/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── security_groups/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   └── vpc/
+│   │       ├── main.tf
+│   │       ├── outputs.tf
+│   │       └── variables.tf
+│   ├── .terraform.lock.hcl
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── providers.tf
+│   ├── terraform.tfvars
+│   └── variables.tf
 ├── .gitignore
-├── .terraform.lock.hcl
 ├── Dockerfile
-├── main.tf
-├── outputs.tf
-├── providers.tf
-├── README.md
-└── variables.tf
+└── README.md
 ```
 
 
@@ -55,7 +65,8 @@ It has been extended to demonstrate a production-grade deployment on AWS using *
 - Modular Terraform structure
 - ECS Deployement on private subnets
 - Public-facing HTTPS via Application load balancer and Amazon Certificate Manager
-- GitHub actions for CI/CD (Build,push, deploy)
+- Security scanning using Trivy in Docker image build pipeline
+- CI/CD separation: individual workflows for plan, apply, and destroy
 - DNS Configuration for custom domain access
 
 
@@ -152,7 +163,7 @@ terraform init
 terraform plan
 terraform apply
 ```
-Terraform will provision all infrasrtucture and output the ALB DNS.
+Terraform will provision all infrastructure and output the ALB DNS.
 
 **Note:** Your ECS tasks will initially fail because no Docker image exists in the ECR yet. Assuming your **terraform.tfvars** file is correctly configured, this will be automatically resolved once you push this project to your GitHub repository and the CI/CD pipeline runs — building and pushing the image to ECR.
 
@@ -163,8 +174,7 @@ After a few minutes, your site will be live at:
 ```https://tm.yourdomain.com```
 
 ### 7. Deploy CI/CD Pipeline
-Push this project to your GitHub repository and the CI/CD pipeline will build and push the Docker image to ECR, and redeploy the ECS service automatically.
-
+Push this project to your GitHub repository. Once the Terraform Apply pipeline completes successfully, the image build pipeline will trigger — building the Docker image, scanning it with Trivy, pushing it to Amazon ECR, and making the new image available to ECS for deployment.
 
 ## Live Site & Screenshots Showcase
 
@@ -175,8 +185,17 @@ Push this project to your GitHub repository and the CI/CD pipeline will build an
 ![alt text](/src/SSL%20Lock%20Icon.JPG)
 ![alt text](/src/SSL%20Certificate.JPG)
 
-### Github Actions - Successful Run
+### Github Actions - Docker Image Successful Run
 ![alt text](/src/GitHub%20Actions%20-%20Success.JPG)
+
+### Github Actions - Terraform Plan Successful Run
+![alt text](/src/tf-plan.png)
+
+### Github Actions - Terraform Apply Successful Run
+![alt text](/src/tf-apply.png)
+
+### Github Actions - Terraform Destroy Successful Run
+![alt text](/src/tf-destroy.png)
 
 ### ECS Tasks Running
 ![alt text](/src/ECS-Tasks-Running.JPG)

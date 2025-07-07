@@ -1,11 +1,6 @@
 name: Docker Image actions
 
 on:
-  workflow_run:
-    workflows: ["Terraform Apply Pipeline"]
-    types:
-      - completed
-
   workflow_dispatch: # MANUAL TRIGGER FROM GITHUB UI
 
 jobs:
@@ -49,3 +44,13 @@ jobs:
 
       - name: "Push Docker Image to Amazon ECR"
         run: docker push $REGISTRY/$REPOSITORY:latest
+      
+      - name: Force ECS Service Redeployment
+        env:
+          CLUSTER: ECS-Clusters
+          SERVICE: mongo
+        run: |
+          aws ecs update-service \
+            --cluster $CLUSTER \
+            --service $SERVICE \
+            --force-new-deployment

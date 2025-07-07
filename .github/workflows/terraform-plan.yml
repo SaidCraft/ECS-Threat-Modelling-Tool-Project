@@ -1,7 +1,7 @@
 name: Terraform Plan Pipeline
 
 on:
-  push:
+  workflow_dispatch:  # Manual trigger only
 
 jobs:
   terraform-plan:
